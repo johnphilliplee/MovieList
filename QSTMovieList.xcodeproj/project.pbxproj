@@ -16,6 +16,7 @@
 		0DCDCAF72A54D293005AA4C1 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDCAF62A54D293005AA4C1 /* MovieDetailView.swift */; };
 		0DCDCAFA2A54EB9C005AA4C1 /* MovieRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDCAF92A54EB9C005AA4C1 /* MovieRowViewModel.swift */; };
 		0DCDCAFC2A54ED5E005AA4C1 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDCAFB2A54ED5E005AA4C1 /* MovieListViewModel.swift */; };
+		0DCDCAFE2A5516AC005AA4C1 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDCAFD2A5516AC005AA4C1 /* ButtonStyles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		0DCDCAF62A54D293005AA4C1 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
 		0DCDCAF92A54EB9C005AA4C1 /* MovieRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRowViewModel.swift; sourceTree = "<group>"; };
 		0DCDCAFB2A54ED5E005AA4C1 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
+		0DCDCAFD2A5516AC005AA4C1 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				0DCDCA982A52963C005AA4C1 /* MovieListView.swift */,
 				0DCDCAA82A529872005AA4C1 /* MovieRow.swift */,
 				0DCDCAF62A54D293005AA4C1 /* MovieDetailView.swift */,
+				0DCDCAFD2A5516AC005AA4C1 /* ButtonStyles.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				0DCDCAA92A529872005AA4C1 /* MovieRow.swift in Sources */,
 				0DCDCAFC2A54ED5E005AA4C1 /* MovieListViewModel.swift in Sources */,
 				0DCDCA972A52963C005AA4C1 /* QSTMovieListApp.swift in Sources */,
+				0DCDCAFE2A5516AC005AA4C1 /* ButtonStyles.swift in Sources */,
 				0DCDCAFA2A54EB9C005AA4C1 /* MovieRowViewModel.swift in Sources */,
 				0DCDCAA62A529673005AA4C1 /* Movie.swift in Sources */,
 			);

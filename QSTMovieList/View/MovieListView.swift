@@ -15,7 +15,7 @@ struct MovieListView: View {
     var body: some View {
         NavigationStack {
             List(viewModel.movies) { movie in
-                NavigationLink(destination: Text(movie.title)) {
+                NavigationLink(destination: MovieDetailView(movie: movie)) {
                     MovieRow(viewModel: MoviewRowViewModel(movie: movie))
                 }
             }
