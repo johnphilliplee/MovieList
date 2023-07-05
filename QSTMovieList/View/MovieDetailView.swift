@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MovieDetailView: View {
+    @AppStorage("watchlist") private var watchlist = Data()
     @ObservedObject var viewModel: MovieDetailViewModel
     @Environment(\.openURL) var openURL
     
@@ -59,8 +60,12 @@ struct MovieDetailView: View {
                 .font(.title3)
                 .fontWeight(.bold)
                 
-                Button("+ ADD TO WATCHLIST") {
-                    
+                Button(viewModel.isOnWatchlist(watchlist: watchlist) ? "REMOVE FROM WATCHLIST" : "+ ADD TO WATCHLIST") {
+                    if viewModel.isOnWatchlist(watchlist: watchlist) {
+                        removeFromWatchlist()
+                    } else {
+                        addToWatchlist()
+                    }                    
                 }
                 .buttonStyle(GrayCapsuleStyle())
                 
@@ -73,6 +78,32 @@ struct MovieDetailView: View {
                 .opacity(viewModel.isTrailerAvailable ? 1 : 0.5)
                 .disabled(!viewModel.isTrailerAvailable)
             }
+        }
+    }
+    
+    private func removeFromWatchlist() {
+        do {
+            if !watchlist.isEmpty {
+                var decoded = try JSONDecoder().decode([String].self, from: watchlist)
+                decoded.removeAll(where: {$0 == viewModel.movie.title})
+                watchlist = try JSONEncoder().encode(decoded)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func addToWatchlist() {
+        do {
+            if !watchlist.isEmpty {
+                var decoded = try JSONDecoder().decode([String].self, from: watchlist)
+                decoded.append(viewModel.movie.title)
+                watchlist = try JSONEncoder().encode(decoded)
+            } else {
+                watchlist = try JSONEncoder().encode([viewModel.movie.title])
+            }
+        } catch {
+            print(error)
         }
     }
     
