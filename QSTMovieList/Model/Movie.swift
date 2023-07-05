@@ -25,7 +25,7 @@ struct Movie: Identifiable {
         rating: Double,
         duration: TimeInterval,
         genre: [Genre],
-        releaseDate: Date,
+        releaseDate: Date?,
         image: String? = nil,
         trailer: URL?
     ) {
@@ -35,14 +35,13 @@ struct Movie: Identifiable {
         self.rating = rating
         self.duration = duration
         self.genre = genre
-        self.releaseDate = releaseDate
+        self.releaseDate = releaseDate ?? Date()
         self.image = image
         self.trailer = trailer
     }
 }
 
 extension Movie {
-    // TODO: releaseDate
     static let samples: [Movie] = [
         Movie(
             title: "Tenet",
@@ -54,7 +53,7 @@ extension Movie {
             rating: 7.8,
             duration: 150 * 60,
             genre: [.action, .scifi],
-            releaseDate: Date(),
+            releaseDate: Date(year: 2020, month: 9, day: 3),
             image: "Tenet",
             trailer: URL(string: "https://www.youtube.com/watch?v=LdOM0x0XDMo")
         ),
@@ -67,7 +66,7 @@ extension Movie {
             rating: 8.4,
             duration: 117 * 60,
             genre: [.animation, .adventure],
-            releaseDate: Date(),
+            releaseDate: Date(year: 2018, month: 12, day: 14),
             image: "Spider Man",
             trailer: URL(string: "https://www.youtube.com/watch?v=tg52up16eq0")
         ),
@@ -79,7 +78,7 @@ extension Movie {
             rating: 7.9,
             duration: 130 * 60,
             genre: [.comedy, .crime, .drama],
-            releaseDate: Date(),
+            releaseDate: Date(year: 2019, month: 11, day: 27),
             image: "Knives Out",
             trailer: URL(string: "https://www.youtube.com/watch?v=qGqiHJTsRkQ")
         ),
@@ -92,7 +91,7 @@ extension Movie {
             rating: 8.0,
             duration: 121 * 60,
             genre: [.action, .adventure, .scifi],
-            releaseDate: Date(),
+            releaseDate: Date(year: 2014, month: 8, day: 1),
             image: "Guardians of The Galaxy",
             trailer: URL(string: "https://www.youtube.com/watch?v=d96cjJhvlMA")
         ),
@@ -106,11 +105,27 @@ extension Movie {
             rating: 7.3,
             duration: 141 * 60,
             genre: [.action, .scifi],
-            releaseDate: Date(),
+            releaseDate: Date(year: 2015, month: 5, day: 1),
             image: "Avengers",
             trailer: URL(string: "https://www.youtube.com/watch?v=tmeOjFno6Do")
         )
     ]
+}
+
+extension Date {
+    init?(year: Int, month: Int, day: Int) {
+        var dateComponents = DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        dateComponents.calendar = Calendar(identifier: .gregorian)
+        
+        if let date = dateComponents.date {
+            self = date
+        } else {
+            return nil
+        }
+    }
 }
 
 enum Genre: String {
