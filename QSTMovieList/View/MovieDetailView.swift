@@ -22,13 +22,11 @@ struct MovieDetailView: View {
             descriptionView
             Divider()
                 .padding()
-            
-            VStack(alignment: .leading) {
-                Text("Details")
-                    .font(.headline)
-                
-            }
+            detailView
+            Spacer()
         }
+        .padding()
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     private var movieInfoView: some View {
@@ -53,7 +51,7 @@ struct MovieDetailView: View {
                         Text(formattedRating)
                         Text("/10")
                             .fontWeight(.regular)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
                     }
                     
                 }
@@ -80,6 +78,25 @@ struct MovieDetailView: View {
                 .font(.headline)
             Text(movie.description)
                 .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+        }
+    }
+    
+    private var detailView: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Details")
+                .font(.headline)
+            
+            HStack {
+                VStack(alignment: .trailing) {
+                    Text("Genre")
+                    Text("Date Released")
+                }
+                VStack(alignment: .leading) {
+                    Text("Adventure")
+                    Text("March 10 2022")
+                }
+                .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+            }
         }
     }
 }

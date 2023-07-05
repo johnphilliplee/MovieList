@@ -21,6 +21,7 @@ struct MovieListView: View {
             }
             .listStyle(.plain)
             .navigationTitle("Movies")
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 Button("Sort") {
                     isShowingSortOptions = true
