@@ -18,6 +18,12 @@ struct Movie: Identifiable {
     var image: String?
     var trailer: URL?
     
+    var yearReleased: Int? {
+        let calendar = Calendar(identifier: .gregorian)
+        let dateComponents = calendar.dateComponents(in: .current, from: releaseDate)
+        return dateComponents.year
+    }
+    
     init(
         id: UUID = UUID(),
         title: String,
