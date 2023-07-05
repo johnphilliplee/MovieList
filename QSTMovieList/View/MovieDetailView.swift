@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct MovieDetailView: View {
-    let movie: Movie
+    @ObservedObject var viewModel: MovieDetailViewModel
+    @Environment(\.openURL) var openURL
     
     var formattedRating: String {
-        String(format: "%.1f", movie.rating)
+        String(format: "%.1f", viewModel.movie.rating)
     }
     
     var body: some View {
@@ -31,7 +32,7 @@ struct MovieDetailView: View {
     
     private var movieInfoView: some View {
         HStack(spacing: 20) {
-            if let image = movie.image {
+            if let image = viewModel.movie.image {
                 Image(image)
                     .resizable()
                     .aspectRatio(2/3, contentMode: .fit)
@@ -43,7 +44,7 @@ struct MovieDetailView: View {
             
             VStack(alignment: .leading, spacing: 20) {
                 HStack {
-                    Text(movie.title)
+                    Text(viewModel.movie.title)
                     
                     Spacer()
                     
@@ -64,11 +65,14 @@ struct MovieDetailView: View {
                 .buttonStyle(GrayCapsuleStyle())
                 
                 Button("WATCH TRAILER") {
-                    
+                    if let trailerURL = viewModel.trailerURL {
+                        openURL(trailerURL)
+                    }
                 }
                 .buttonStyle(BorderedCapsuleStyle())
+                .opacity(viewModel.isTrailerAvailable ? 1 : 0.5)
+                .disabled(!viewModel.isTrailerAvailable)
             }
-            
         }
     }
     
@@ -76,7 +80,7 @@ struct MovieDetailView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Short Description")
                 .font(.headline)
-            Text(movie.description)
+            Text(viewModel.movie.description)
                 .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
         }
     }
@@ -103,6 +107,6 @@ struct MovieDetailView: View {
 
 struct MovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieDetailView(movie: Movie.samples[0])
+        MovieDetailView(viewModel: MovieDetailViewModel(movie: Movie.samples[0]))
     }
 }

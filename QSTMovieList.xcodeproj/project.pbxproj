@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D6F59B52A5632DF00671F27 /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6F59B42A5632DF00671F27 /* MovieDetailViewModel.swift */; };
 		0DCDCA972A52963C005AA4C1 /* QSTMovieListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDCA962A52963C005AA4C1 /* QSTMovieListApp.swift */; };
 		0DCDCA992A52963C005AA4C1 /* MovieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDCA982A52963C005AA4C1 /* MovieListView.swift */; };
 		0DCDCA9B2A52963C005AA4C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DCDCA9A2A52963C005AA4C1 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D6F59B42A5632DF00671F27 /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModel.swift; sourceTree = "<group>"; };
 		0DCDCA932A52963C005AA4C1 /* QSTMovieList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QSTMovieList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DCDCA962A52963C005AA4C1 /* QSTMovieListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSTMovieListApp.swift; sourceTree = "<group>"; };
 		0DCDCA982A52963C005AA4C1 /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				0DCDCAF92A54EB9C005AA4C1 /* MovieRowViewModel.swift */,
 				0DCDCAFB2A54ED5E005AA4C1 /* MovieListViewModel.swift */,
+				0D6F59B42A5632DF00671F27 /* MovieDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				0DCDCAFE2A5516AC005AA4C1 /* ButtonStyles.swift in Sources */,
 				0DCDCAFA2A54EB9C005AA4C1 /* MovieRowViewModel.swift in Sources */,
 				0DCDCAA62A529673005AA4C1 /* Movie.swift in Sources */,
+				0D6F59B52A5632DF00671F27 /* MovieDetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
