@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MovieRow: View {
+    @AppStorage("watchlist") private var watchlist = Data()
     @ObservedObject var viewModel: MoviewRowViewModel
     
     var body: some View {
@@ -30,10 +31,12 @@ struct MovieRow: View {
                 Text("1 h 20 min")
                     .foregroundColor(.gray)
                                 
-                Text("ON MY WATCHLIST")
-                    .font(.callout)
-                    .fontWeight(.medium)
-                    .padding(.top)
+                if viewModel.isOnWatchlist(watchlist: watchlist) {
+                    Text("ON MY WATCHLIST")
+                        .font(.callout)
+                        .fontWeight(.medium)
+                        .padding(.top)
+                }
             }
             
             Spacer()

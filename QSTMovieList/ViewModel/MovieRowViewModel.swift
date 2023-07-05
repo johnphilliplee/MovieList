@@ -15,4 +15,13 @@ class MoviewRowViewModel: ObservableObject {
     
     @Published var title: String
     @Published var image: String?
+    
+    func isOnWatchlist(watchlist: Data) -> Bool {
+        do {
+            let list = try JSONDecoder().decode([String].self, from: watchlist)
+            return list.contains(title)
+        } catch {
+            return false
+        }
+    }
 }

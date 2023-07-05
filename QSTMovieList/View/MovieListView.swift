@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MovieListView: View {
+    @AppStorage("watchlist") private var watchlist = Data()
     @StateObject private var viewModel = MovieListViewModel(movies: Movie.samples)
     
     var body: some View {
