@@ -28,7 +28,6 @@ struct MovieDetailView: View {
             Spacer()
         }
         .padding()
-        .navigationBarTitleDisplayMode(.inline)
     }
     
     private var movieInfoView: some View {
@@ -65,7 +64,7 @@ struct MovieDetailView: View {
                         removeFromWatchlist()
                     } else {
                         addToWatchlist()
-                    }                    
+                    }
                 }
                 .buttonStyle(GrayCapsuleStyle())
                 
@@ -127,12 +126,18 @@ struct MovieDetailView: View {
                     Text("Date Released")
                 }
                 VStack(alignment: .leading) {
-                    Text("Adventure")
-                    Text("March 10 2022")
+                    Text(viewModel.movie.genre.map{$0.rawValue.capitalized}.joined(separator: ", "))
+                    Text(formattedDate)
                 }
                 .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
             }
         }
+    }
+    
+    private var formattedDate: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy, d MMMM"
+        return formatter.string(from: viewModel.movie.releaseDate)
     }
 }
 
