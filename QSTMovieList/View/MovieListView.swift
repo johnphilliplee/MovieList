@@ -31,7 +31,6 @@ struct MovieListView: View {
                         withAnimation {
                             viewModel.sort(by: .title)
                         }
-                        
                     }
                     
                     Button("Released Date") {

@@ -104,9 +104,9 @@ extension Movie {
         Movie(
             title: "Avengers: Age of Ultron",
             description: """
-                 When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping
-                 program called Ultron, things go horribly wrong and it's up to Earth's mightiest heroes to stop the
-                 villainous Ultron from enacting his terrible plan.
+                When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping
+                program called Ultron, things go horribly wrong and it's up to Earth's mightiest heroes to stop the
+                villainous Ultron from enacting his terrible plan.
                 """,
             rating: 7.3,
             duration: 141 * 60,
@@ -142,4 +142,13 @@ enum Genre: String {
     case crime
     case drama
     case scifi
+    
+    var display: String {
+        switch self {
+        case .scifi:
+        return "Sci-Fi"
+        case .action, .animation, .adventure, .comedy, .crime, .drama:
+            return rawValue
+        }
+    }
 }

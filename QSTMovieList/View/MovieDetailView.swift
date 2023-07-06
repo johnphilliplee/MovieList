@@ -11,28 +11,26 @@ struct MovieDetailView: View {
     @AppStorage("watchlist") private var watchlist = Data()
     @ObservedObject var viewModel: MovieDetailViewModel
     @Environment(\.openURL) var openURL
-    
-    var formattedRating: String {
-        String(format: "%.1f", viewModel.movie.rating)
-    }
-    
+        
     var body: some View {
-        VStack(alignment: .leading) {
-            movieInfoView
-            Divider()
-                .padding()
-            descriptionView
-            Divider()
-                .padding()
-            detailView
-            Spacer()
+        ScrollView(.vertical) {
+            VStack(alignment: .leading) {
+                movieInfoView
+                Divider()
+                    .padding(.vertical)
+                descriptionView
+                Divider()
+                    .padding(.vertical)
+                detailView
+                Spacer()
+            }
+            .padding()
         }
-        .padding()
     }
     
     private var movieInfoView: some View {
-        HStack(spacing: 20) {
-            if let image = viewModel.movie.image {
+        HStack(alignment: .top, spacing: 16) {
+            if let image = viewModel.image {
                 Image(image)
                     .resizable()
                     .aspectRatio(2/3, contentMode: .fit)
@@ -42,14 +40,14 @@ struct MovieDetailView: View {
                     .shadow(radius: 5)
             }
             
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: 16) {
                 HStack {
-                    Text(viewModel.movie.title)
+                    Text(viewModel.title)
                     
                     Spacer()
                     
                     HStack(spacing: 0){
-                        Text(formattedRating)
+                        Text(viewModel.formattedRating)
                         Text("/10")
                             .fontWeight(.regular)
                             .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
@@ -60,11 +58,7 @@ struct MovieDetailView: View {
                 .fontWeight(.bold)
                 
                 Button(viewModel.isOnWatchlist(watchlist: watchlist) ? "REMOVE FROM WATCHLIST" : "+ ADD TO WATCHLIST") {
-                    if viewModel.isOnWatchlist(watchlist: watchlist) {
-                        removeFromWatchlist()
-                    } else {
-                        addToWatchlist()
-                    }
+                    watchlistAction()
                 }
                 .buttonStyle(GrayCapsuleStyle())
                 
@@ -80,11 +74,19 @@ struct MovieDetailView: View {
         }
     }
     
+    private func watchlistAction() {
+        if viewModel.isOnWatchlist(watchlist: watchlist) {
+            removeFromWatchlist()
+        } else {
+            addToWatchlist()
+        }
+    }
+    
     private func removeFromWatchlist() {
         do {
             if !watchlist.isEmpty {
                 var decoded = try JSONDecoder().decode([String].self, from: watchlist)
-                decoded.removeAll(where: {$0 == viewModel.movie.title})
+                decoded.removeAll(where: {$0 == viewModel.title})
                 watchlist = try JSONEncoder().encode(decoded)
             }
         } catch {
@@ -94,13 +96,9 @@ struct MovieDetailView: View {
     
     private func addToWatchlist() {
         do {
-            if !watchlist.isEmpty {
-                var decoded = try JSONDecoder().decode([String].self, from: watchlist)
-                decoded.append(viewModel.movie.title)
-                watchlist = try JSONEncoder().encode(decoded)
-            } else {
-                watchlist = try JSONEncoder().encode([viewModel.movie.title])
-            }
+            var movieList = watchlist.isEmpty ? [] : try JSONDecoder().decode([String].self, from: watchlist)
+            movieList.append(viewModel.title)
+            watchlist = try JSONEncoder().encode(movieList)
         } catch {
             print(error)
         }
@@ -110,8 +108,9 @@ struct MovieDetailView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Short Description")
                 .font(.headline)
-            Text(viewModel.movie.description)
+            Text(viewModel.description)
                 .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+                .multilineTextAlignment(.leading)
         }
     }
     
@@ -126,18 +125,12 @@ struct MovieDetailView: View {
                     Text("Date Released")
                 }
                 VStack(alignment: .leading) {
-                    Text(viewModel.movie.genre.map{$0.rawValue.capitalized}.joined(separator: ", "))
-                    Text(formattedDate)
+                    Text(viewModel.formattedGenre)
+                    Text(viewModel.formattedDate)
                 }
                 .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
             }
         }
-    }
-    
-    private var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy, d MMMM"
-        return formatter.string(from: viewModel.movie.releaseDate)
     }
 }
 
