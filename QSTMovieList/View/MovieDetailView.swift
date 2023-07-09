@@ -11,7 +11,7 @@ struct MovieDetailView: View {
     @AppStorage("watchlist") private var watchlist = Data()
     @ObservedObject var viewModel: MovieDetailViewModel
     @Environment(\.openURL) var openURL
-        
+    
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading) {
@@ -25,6 +25,11 @@ struct MovieDetailView: View {
                 Spacer()
             }
             .padding()
+            .alert("Action failed. Please try again later.", isPresented: $viewModel.displayError) {
+                Button("OK") {
+                    viewModel.error = nil
+                }
+            }
         }
     }
     
@@ -58,7 +63,11 @@ struct MovieDetailView: View {
                 .fontWeight(.bold)
                 
                 Button(viewModel.isOnWatchlist(watchlist: watchlist) ? "REMOVE FROM WATCHLIST" : "+ ADD TO WATCHLIST") {
-                    watchlistAction()
+                    do {
+                        try watchlistAction()
+                    } catch {
+                        viewModel.error = error
+                    }                    
                 }
                 .buttonStyle(GrayCapsuleStyle())
                 
@@ -74,34 +83,26 @@ struct MovieDetailView: View {
         }
     }
     
-    private func watchlistAction() {
+    private func watchlistAction() throws {
         if viewModel.isOnWatchlist(watchlist: watchlist) {
-            removeFromWatchlist()
+            try removeFromWatchlist()
         } else {
-            addToWatchlist()
+            try addToWatchlist()
         }
     }
     
-    private func removeFromWatchlist() {
-        do {
-            if !watchlist.isEmpty {
-                var decoded = try JSONDecoder().decode([String].self, from: watchlist)
-                decoded.removeAll(where: {$0 == viewModel.title})
-                watchlist = try JSONEncoder().encode(decoded)
-            }
-        } catch {
-            print(error)
+    private func removeFromWatchlist() throws {
+        if !watchlist.isEmpty {
+            var decoded = try JSONDecoder().decode([String].self, from: watchlist)
+            decoded.removeAll(where: {$0 == viewModel.title})
+            watchlist = try JSONEncoder().encode(decoded)
         }
     }
     
-    private func addToWatchlist() {
-        do {
-            var movieList = watchlist.isEmpty ? [] : try JSONDecoder().decode([String].self, from: watchlist)
-            movieList.append(viewModel.title)
-            watchlist = try JSONEncoder().encode(movieList)
-        } catch {
-            print(error)
-        }
+    private func addToWatchlist() throws {
+        var movieList = watchlist.isEmpty ? [] : try JSONDecoder().decode([String].self, from: watchlist)
+        movieList.append(viewModel.title)
+        watchlist = try JSONEncoder().encode(movieList)
     }
     
     private var descriptionView: some View {

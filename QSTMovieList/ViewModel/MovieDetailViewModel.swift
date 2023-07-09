@@ -30,6 +30,12 @@ class MovieDetailViewModel: ObservableObject {
     @Published var formattedRating: String
     @Published var image: String?
     @Published var description: String
+    @Published var displayError: Bool = false
+    var error: Error? {
+        didSet {
+            displayError = error != nil
+        }
+    }
     
     func isOnWatchlist(watchlist: Data) -> Bool {
         do {
